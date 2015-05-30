@@ -30,3 +30,7 @@ class ControllersTest < Minitest::Test
     DatabaseCleaner.clean
   end
 end
+
+class FeatureTest < ControllersTest
+  include Capybara::DSL
+end

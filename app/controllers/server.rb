@@ -16,7 +16,7 @@ module TrafficSpy
     post '/sources' do
       # status SourceResponder.new(params).status
       # body SourceResponder.new(params).body
-      @source_responder = SourceResponder.new(params) 
+      @source_responder = SourceResponder.new(params)
       source_data = { identifier: params["identifier"],
                       root_url: params["rootUrl"] }
 
@@ -64,10 +64,11 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
 
-
       if Source.exists?(identifier: identifier)
+        @identifier = identifier
+        erb :application_details
       else
-        @error_message = "That #{identifier} does not exist"
+        @error_message = "Identifier: '#{identifier}' does not exist"
         redirect not_found
       end
       #if the identifier do not exist then we need to return an error message
