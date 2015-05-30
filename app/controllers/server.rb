@@ -66,10 +66,16 @@ module TrafficSpy
 
       if Source.exists?(identifier: identifier)
         @identifier = identifier
-        grouped_browsers = Visitor.all.group_by { |visitor| visitor.web_browser }
+        @visitors   = Visitor.all
+        grouped_browsers  = @visitors.group_by { |visitor| visitor.web_browser }
         @counted_browsers = grouped_browsers.map do |browser, collection|
                               [browser, collection.count]
                             end
+        grouped_os  = @visitors.group_by { |visitor| visitor.operating_system }
+        @counted_os = grouped_os.map do |os, collection|
+                        [os, collection.count]
+                      end
+
 
         erb :application_details
       else

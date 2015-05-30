@@ -14,8 +14,7 @@ module TrafficSpy
     end
 
     def operating_system
-      parsed_user_agent.platform
+      UserAgent::OperatingSystems.normalize_os(user_agent)
     end
-
   end
 end

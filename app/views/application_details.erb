@@ -5,12 +5,23 @@
 <h2>Application Details</h2>
 <br>
 
-<table id="application_details">
+<table id="browser_details">
   <th>Web Browser</th>
   <th>Count</th>
   <% @counted_browsers.each do |browser, count| %>
   <tr>
     <td><%= browser %></td>
+    <td><%= count %></td>
+  </tr>
+  <% end %>
+</table>
+
+<table id="os_details">
+  <th>Operating System</th>
+  <th>Count</th>
+  <% @counted_os.each do |os, count| %>
+  <tr>
+    <td><%= os %></td>
     <td><%= count %></td>
   </tr>
   <% end %>

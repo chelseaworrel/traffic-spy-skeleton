@@ -30,7 +30,7 @@ class ApplicationTest < FeatureTest
 
   def test_page_has_web_browser_breakdown
     visit '/sources/jumpstartlab'
-    within("#application_details") do
+    within("#browser_details") do
       assert page.has_content?("Chrome")
       assert page.has_content?("1")
     end
@@ -38,24 +38,40 @@ class ApplicationTest < FeatureTest
     create_visitors
     visit '/sources/jumpstartlab'
 
-    within("#application_details") do
+    within("#browser_details") do
       assert page.has_content?("Chrome")
       assert page.has_content?("6")
     end
+    save_and_open_page
   end
+
+  def test_page_has_operating_system_breakdown
+    visit '/sources/jumpstartlab'
+    within("#os_details") do
+      assert page.has_content?("OS X 10.8.2")
+      assert page.has_content?("1")
+    end
+
+    create_visitors
+    visit '/sources/jumpstartlab'
+
+    within("#os_details") do
+      assert page.has_content?("OS X 10.8.2")
+      assert page.has_content?("6")
+    end
+  end
+end
 
 #
 #     As a client with a registered application
 #     When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
-#      Then it should return a page that displays the Web browser breakdown across all requests (userAgent)
+#      Then it should return a page that displays the OS breakdown across all requests (userAgent)
+        #-> need to parse out the OS from the userAgent .operating_system
+        #
 #
-#      need a new route in the controller file -  get '/sources/IDENTIFIER'
+#
 # need a view erb: most_requested_urls
 # table:  create pages table with urls and a relationship to sources
 # create model based on table with relationships
 # logic: as a client I want to see all the urls in order from most requested to least
 # views: display urls sequentially within a table
-
-
-
-end
