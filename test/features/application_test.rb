@@ -29,13 +29,18 @@ class ApplicationTest < FeatureTest
   end
 
   def test_page_has_web_browser_breakdown
-    post "/sources", { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
+    visit '/sources/jumpstartlab'
+    within("#application_details") do
+      assert page.has_content?("Chrome")
+      assert page.has_content?("1")
+    end
+
     create_visitors
     visit '/sources/jumpstartlab'
 
     within("#application_details") do
       assert page.has_content?("Chrome")
-      assert page.has_content?("5")
+      assert page.has_content?("6")
     end
   end
 
