@@ -11,7 +11,7 @@ require 'database_cleaner'
 require 'tilt/erb'
 require 'byebug'
 
-DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
+DatabaseCleaner.strategy = :truncation, { except: %w[public.schema_migrations] }
 
 Capybara.app = TrafficSpy::Server
 

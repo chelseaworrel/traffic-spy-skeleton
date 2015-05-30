@@ -57,6 +57,12 @@ module TrafficSpy
         body "Application not registered"
       end
     end
-    
+
+    #existing route
+    get '/sources/:identifier' do |identifier|
+      if Sources.exists?(identifier: identifier)
+      end
+    end
+
   end
 end
