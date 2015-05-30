@@ -39,7 +39,6 @@ module TrafficSpy
     post '/sources/:identifier/data' do |identifier|
       # status PayloadResponder.new(params).status
       # body PayloadResponder.new(params).body
-
       if Source.exists?(identifier: identifier)
         sha = Payload.generate_sha(params.values.join)
         if Payload.exists?(sha: sha)
@@ -62,17 +61,22 @@ module TrafficSpy
 
     #  When an identifer exists return a page that displays the following:
     #  Most requested URLS to least requested URLS (url)
-    
+
     get '/sources/:identifier' do |identifier|
       if Source.exists?(identifier: identifier)
-
-        status 200    
-        erb :index 
       else
-        @error = "#{identifier} does not exist!"
-        status 404
-        erb :error
+        @error_message = "That #{identifier} does not exist"
+        redirect not_found
       end
+      #if the identifier do not exist then we need to return an error message
+      #identifier: jumpstartlab
     end
   end
 end
+
+# need a new route in the controller file -  get '/sources/IDENTIFIER'
+# need a view erb: most_requested_urls
+# table:  create pages table with urls and a relationship to sources
+# create model based on table with relationships
+# logic: as a client I want to see all the urls in order from most requested to least
+# views: display urls sequentially within a table
