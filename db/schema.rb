@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530053557) do
+ActiveRecord::Schema.define(version: 20150530215342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(version: 20150530053557) do
 
   create_table "visitors", force: :cascade do |t|
     t.text     "user_agent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.text     "resolution_width"
+    t.text     "resolution_height"
   end
-
 end

@@ -42,7 +42,6 @@ class ApplicationTest < FeatureTest
       assert page.has_content?("Chrome")
       assert page.has_content?("6")
     end
-    save_and_open_page
   end
 
   def test_page_has_operating_system_breakdown
@@ -60,18 +59,21 @@ class ApplicationTest < FeatureTest
       assert page.has_content?("6")
     end
   end
+
+  def test_page_has_screen_resolution_across_all_requests
+    visit '/sources/jumpstartlab'
+    within("#resolution_details") do
+      assert page.has_content?("1920x1280")
+    end
+    save_and_open_page
+  end
 end
 
 #
-#     As a client with a registered application
-#     When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
-#      Then it should return a page that displays the OS breakdown across all requests (userAgent)
-        #-> need to parse out the OS from the userAgent .operating_system
-        #
-#
-#
-# need a view erb: most_requested_urls
-# table:  create pages table with urls and a relationship to sources
-# create model based on table with relationships
-# logic: as a client I want to see all the urls in order from most requested to least
-# views: display urls sequentially within a table
+# As a client with a registered application
+# When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
+# Then it should return a page that displays the
+# Screen Resolution across all requests (resolutionWidth x resolutionHeight)
+ #create 2 new table columns:
+  # "resolutionWidth":"1920"
+  # "resolutionHeight":"1280"

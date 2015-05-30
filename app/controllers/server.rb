@@ -76,6 +76,9 @@ module TrafficSpy
                         [os, collection.count]
                       end
 
+        @resolutions = @visitors.map do |visitor|
+                         "#{visitor.resolution_width}x#{visitor.resolution_height}"
+                       end
 
         erb :application_details
       else

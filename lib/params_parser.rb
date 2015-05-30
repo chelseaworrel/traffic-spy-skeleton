@@ -10,7 +10,9 @@ module TrafficSpy
     def parse
       Payload.create({sha: sha})
       Page.create({url: payload["url"]})
-      Visitor.create(user_agent: payload["userAgent"])
+      Visitor.create(user_agent: payload["userAgent"],
+              resolution_height: payload["resolutionHeight"],
+               resolution_width: payload["resolutionWidth"])
     end
   end
 end
