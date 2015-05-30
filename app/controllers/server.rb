@@ -57,6 +57,6 @@ module TrafficSpy
         body "Application not registered"
       end
     end
-    
+
   end
 end
