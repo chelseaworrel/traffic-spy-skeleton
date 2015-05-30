@@ -59,6 +59,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+
+
       if Source.exists?(identifier: identifier)
       else
         @error_message = "That identifier does not exist"
