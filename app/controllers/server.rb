@@ -16,7 +16,7 @@ module TrafficSpy
     post '/sources' do
       # status SourceResponder.new(params).status
       # body SourceResponder.new(params).body
-      @source_responder = SourceResponder.new(params) 
+      @source_responder = SourceResponder.new(params)
       source_data = { identifier: params["identifier"],
                       root_url: params["rootUrl"] }
 
@@ -63,16 +63,25 @@ module TrafficSpy
     #  Most requested URLS to least requested URLS (url)
 
     get '/sources/:identifier' do |identifier|
+
       if Source.exists?(identifier: identifier)
+        @identifier = identifier
+        grouped_browsers = Visitor.all.group_by { |visitor| visitor.web_browser }
+        @counted_browsers = grouped_browsers.map do |browser, collection|
+                              [browser, collection.count]
+                            end
+
+        erb :application_details
       else
-        @error_message = "That #{identifier} does not exist"
+        @error_message = "Identifier: '#{identifier}' does not exist"
         redirect not_found
       end
-      #if the identifier do not exist then we need to return an error message
-      #identifier: jumpstartlab
+
     end
   end
 end
+
+
 
 # need a new route in the controller file -  get '/sources/IDENTIFIER'
 # need a view erb: most_requested_urls

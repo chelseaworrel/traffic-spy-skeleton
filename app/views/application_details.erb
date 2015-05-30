@@ -1,0 +1,17 @@
+<h1><%= @identifier %></h1>
+
+<br>
+
+<h2>Application Details</h2>
+<br>
+
+<table id="application_details">
+  <th>Web Browser</th>
+  <th>Count</th>
+  <% @counted_browsers.each do |browser, count| %>
+  <tr>
+    <td><%= browser %></td>
+    <td><%= count %></td>
+  </tr>
+  <% end %>
+</table>
