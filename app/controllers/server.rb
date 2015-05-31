@@ -102,5 +102,14 @@ module TrafficSpy
         redirect not_found
       end
     end
+
+    get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
+      if Source.exists?(identifier: identifier)
+      else
+        @error_message = "Identifier: '#{identifier}' does not exist"
+        redirect not_found
+      end
+    end
+
   end
 end
