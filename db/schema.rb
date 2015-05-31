@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20150531084447) do
     t.integer  "page_id"
   end
 
+  add_index "requests", ["page_id"], name: "index_requests_on_page_id", using: :btree
+
   create_table "sources", force: :cascade do |t|
     t.text     "identifier"
     t.text     "root_url"

@@ -89,13 +89,22 @@ module TrafficSpy
 
         # @url = TrafficSpy::Page.where(url: "http://jumpstartlab.com/blog")
 
-        @urls = Page.all
-        # @requests = Request.all
+        @pages = Page.all
+        @average_times = @pages.map{|page| page.average_time }
 
+        # @test = @pages.map do |page|
+        #           page.requests
+        #         end
+        # @requests = Request.all
+        #
+        # loop thru urls and average the response times.
+        # then we need to display them from longest to slowest
+        #
+        #
        # @request = TrafficSpy::Request.where(@request.page_id == 1)
-       # Then it should return a page that displays the 
+       # Then it should return a page that displays the
        # Longest, average response time per URL to shortest, average response time per URL
-        
+
         erb :application_details
       else
         @error_message = "Identifier: '#{identifier}' does not exist"

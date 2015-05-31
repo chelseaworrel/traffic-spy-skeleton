@@ -53,6 +53,10 @@
   <th>Time</th>
   <th>URL</th>
     <tr>
+    <td style="text-align: center"><%=  %></td>
+    <tr> <% @pages.map do |page| %>
+      <td> <%= page.requests.responded_in %></td>    
+      <% end %>
     </tr>
       <tr>
       </tr>

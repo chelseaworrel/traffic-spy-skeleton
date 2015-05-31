@@ -6,8 +6,9 @@ class ApplicationTest < FeatureTest
   def payload
     '{
       "url":"http://jumpstartlab.com/blog",
-      "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37,
+      "requestedAt":"2013-02-16 21:38:28 -700"
+      rake test
+      respondedIn":37,
       "referredBy":"http://jumpstartlab.com",
       "requestType":"GET",
       "eventName":"socialLogin",
@@ -112,23 +113,23 @@ class ApplicationTest < FeatureTest
   # Then it should return a page that displays the 
   # Longest, average response time per URL to shortest, average response time per URL
 
-  def create_response_times
-    5.times do |num|
-      TrafficSpy::Request.create("responded_in" => num)
+  def create_response_times(num)
+    1.upto(num) do |n|
+      TrafficSpy::Request.create("responded_in" => n)
     end
-
-    3.times do |num|
-      TrafficSpy::Request.create("responded_in" => num)
+    num = num -= 2
+    1.upto(num) do |n|
+      TrafficSpy::Request.create("responded_in" => n)
     end
   end
 
   def test_page_displays_average_response_times_from_highest_to_lowest
-    create_response_times
+    create_response_times(5)
     visit '/sources/jumpstartlab'
+    save_and_open_page
     within("#response_times") do
-      save_and_open_page
-      assert page.has_content?(3.0)
-      assert page.has_content?(2.0)
+      assert page.has_content?("3.0")
+      assert page.has_content?("2.0")
     end
   end
 end
