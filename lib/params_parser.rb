@@ -29,14 +29,13 @@ module TrafficSpy
       visitor.resolution_width = payload["resolutionWidth"]
       visitor.resolution_height = payload["resolutionHeight"]
       visitor.user_agent = payload["userAgent"] 
-      visitor.request_id = request.id
 
-       # test = Page.new
-       # test.requests.create({page_id: Page.id})      
-       # test.save
+       test = Page.new
+       test.requests.page_id = page.id      
+       test.save
       page.save
       request.save
       visitor.save
-    end
+      end
   end
 end
