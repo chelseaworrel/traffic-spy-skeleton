@@ -2,7 +2,7 @@ require 'user_agent'
 
 module TrafficSpy
   class Visitor < ActiveRecord::Base
-    # has_many  :requests
+    has_many  :requests
     validates :user_agent, presence: true
 
     def parsed_user_agent

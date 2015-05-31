@@ -1,4 +1,5 @@
 require './test/test_helper'
+require 'byebug'
 
 class ApplicationTest < FeatureTest
 
@@ -112,16 +113,22 @@ class ApplicationTest < FeatureTest
   # Longest, average response time per URL to shortest, average response time per URL
 
   def create_response_times
-    5.times do
-      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog")
+    5.times do |num|
+      TrafficSpy::Request.create("responded_in" => num)
     end
 
-    3.times do
-      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about")
+    3.times do |num|
+      TrafficSpy::Request.create("responded_in" => num)
     end
   end
 
   def test_page_displays_average_response_times_from_highest_to_lowest
-
+    create_response_times
+    visit '/sources/jumpstartlab'
+    within("#response_times") do
+      save_and_open_page
+      assert page.has_content?(3.0)
+      assert page.has_content?(2.0)
+    end
   end
 end
