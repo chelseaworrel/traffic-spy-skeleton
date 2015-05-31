@@ -1,6 +1,7 @@
 module TrafficSpy
   class Source < ActiveRecord::Base
     has_many  :payloads
+    has_many  :pages
     validates :root_url,   presence: true
     validates :identifier, presence: true,
                          uniqueness: { scope: :root_url,

@@ -85,13 +85,22 @@ module TrafficSpy
         grouped_pages = Page.group(:url).count
         @grouped_pages = grouped_pages.sort_by { |page| page.last }.reverse
 
+        #sorting response times
+
+        # @url = TrafficSpy::Page.where(url: "http://jumpstartlab.com/blog")
+
+        @urls = Page.all
+        # @requests = Request.all
+
+       # @request = TrafficSpy::Request.where(@request.page_id == 1)
+       # Then it should return a page that displays the
+       # Longest, average response time per URL to shortest, average response time per URL
 
         erb :application_details
       else
         @error_message = "Identifier: '#{identifier}' does not exist"
         redirect not_found
       end
-
     end
 
     get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
@@ -104,13 +113,3 @@ module TrafficSpy
 
   end
 end
-
-
-
-
-# need a new route in the controller file -  get '/sources/IDENTIFIER'
-# need a view erb: most_requested_urls
-# table:  create pages table with urls and a relationship to sources
-# create model based on table with relationships
-# logic: as a client I want to see all the urls in order from most requested to least
-# views: display urls sequentially within a table
