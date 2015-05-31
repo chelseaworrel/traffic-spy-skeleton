@@ -85,7 +85,12 @@ module TrafficSpy
         grouped_pages = Page.group(:url).count
         @grouped_pages = grouped_pages.sort_by { |page| page.last }.reverse
 
-
+        #sorting response times
+       # As a client with a registered application
+       # When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
+       # Then it should return a page that displays the 
+       # Longest, average response time per URL to shortest, average response time per URL
+        
         erb :application_details
       else
         @error_message = "Identifier: '#{identifier}' does not exist"

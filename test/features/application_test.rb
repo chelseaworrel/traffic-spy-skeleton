@@ -106,5 +106,22 @@ class ApplicationTest < FeatureTest
 
   end
 
+  # As a client with a registered application
+  # When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
+  # Then it should return a page that displays the 
+  # Longest, average response time per URL to shortest, average response time per URL
 
+  def create_response_times
+    5.times do
+      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog")
+    end
+
+    3.times do
+      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about")
+    end
+  end
+
+  def test_page_displays_average_response_times_from_highest_to_lowest
+
+  end
 end
