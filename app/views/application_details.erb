@@ -27,12 +27,23 @@
   <% end %>
 </table>
 
-
 <table id="resolution_details">
   <th>Screen Resolutions</th>
   <% @resolutions.each do |resolution| %>
   <tr>
     <td><%= resolution %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h3>Most Visited URLs</h3>
+<table id="sorted_urls">
+  <th>Total</th>
+  <th>URL</th>
+  <% @grouped_pages.each do |url, times_visited| %>
+  <tr>
+    <td style="text-align: center"><%= times_visited %></td>
+    <td style="text-align: center"><%= url %></td>
   </tr>
   <% end %>
 </table>

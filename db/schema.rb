@@ -42,4 +42,5 @@ ActiveRecord::Schema.define(version: 20150530215342) do
     t.text     "resolution_width"
     t.text     "resolution_height"
   end
+
 end

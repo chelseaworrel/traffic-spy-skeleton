@@ -67,18 +67,24 @@ module TrafficSpy
       if Source.exists?(identifier: identifier)
         @identifier = identifier
         @visitors   = Visitor.all
+        # web browsers
         grouped_browsers  = @visitors.group_by { |visitor| visitor.web_browser }
         @counted_browsers = grouped_browsers.map do |browser, collection|
                               [browser, collection.count]
                             end
+        # operating_system
         grouped_os  = @visitors.group_by { |visitor| visitor.operating_system }
         @counted_os = grouped_os.map do |os, collection|
                         [os, collection.count]
                       end
-
+        # resolutions
         @resolutions = @visitors.map do |visitor|
                          "#{visitor.resolution_width}x#{visitor.resolution_height}"
                        end
+        #sorting urls
+        grouped_pages = Page.group(:url).count
+        @grouped_pages = grouped_pages.sort_by { |page| page.last }.reverse
+
 
         erb :application_details
       else
@@ -89,6 +95,14 @@ module TrafficSpy
     end
   end
 end
+
+# <% #@sorted_urls.each do |url, count| %>
+# <tr>
+#   <td><%= #url %></td>
+#   <td><%= #count %></td>
+# </tr>
+# <% #end %>
+
 
 
 
