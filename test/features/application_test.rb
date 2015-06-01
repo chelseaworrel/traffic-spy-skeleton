@@ -78,16 +78,6 @@ class ApplicationTest < FeatureTest
     end
   end
 
-  def create_page_urls
-    5.times do
-      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog")
-    end
-
-    3.times do
-      TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about")
-    end
-  end
-
   def test_page_has_screen_resolution_across_all_requests
     visit '/sources/jumpstartlab'
     within("#resolution_details") do
@@ -95,10 +85,25 @@ class ApplicationTest < FeatureTest
     end
   end
 
+  def create_requests(num)
+    TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog", "id" => 1)
+    TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about", "id" => 2)
+
+
+    1.upto(num) do |n|
+      TrafficSpy::Request.create("responded_in" => n, "page_id" => 2)
+
+    end
+    num = num -= 2
+    1.upto(num) do |n|
+      TrafficSpy::Request.create("responded_in" => n, "page_id" => 1)
+    end
+  end
 
   def test_page_displays_most_to_least_requested_urls
-    create_page_urls
+    create_requests(5)
     visit '/sources/jumpstartlab'
+    save_and_open_page
     within("#sorted_urls") do
       assert page.has_content?("http://jumpstartlab.com/blog")
       assert page.has_content?("6")
@@ -110,26 +115,17 @@ class ApplicationTest < FeatureTest
 
   # As a client with a registered application
   # When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
-  # Then it should return a page that displays the 
+  # Then it should return a page that displays the
   # Longest, average response time per URL to shortest, average response time per URL
 
-  def create_response_times(num)
-    1.upto(num) do |n|
-      TrafficSpy::Request.create("responded_in" => n)
-    end
-    num = num -= 2
-    1.upto(num) do |n|
-      TrafficSpy::Request.create("responded_in" => n)
-    end
-  end
 
-  def test_page_displays_average_response_times_from_highest_to_lowest
-    create_response_times(5)
-    visit '/sources/jumpstartlab'
-    save_and_open_page
-    within("#response_times") do
-      assert page.has_content?("3.0")
-      assert page.has_content?("2.0")
-    end
-  end
+  # def test_page_displays_average_response_times_from_highest_to_lowest
+  #   create_requests(5)
+  #   visit '/sources/jumpstartlab'
+  #   # save_and_open_page
+  #   within("#response_times") do
+  #     assert page.has_content?("3.0")
+  #     assert page.has_content?("2.0")
+  #   end
+  # end
 end
