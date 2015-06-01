@@ -86,14 +86,12 @@ class ApplicationTest < FeatureTest
   end
 
   def create_requests(num)
-    TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog", "id" => 1)
     TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about", "id" => 2)
-
 
     1.upto(num) do |n|
       TrafficSpy::Request.create("responded_in" => n, "page_id" => 2)
-
     end
+
     num = num -= 2
     1.upto(num) do |n|
       TrafficSpy::Request.create("responded_in" => n, "page_id" => 1)
@@ -106,9 +104,9 @@ class ApplicationTest < FeatureTest
     save_and_open_page
     within("#sorted_urls") do
       assert page.has_content?("http://jumpstartlab.com/blog")
-      assert page.has_content?("6")
+      assert page.has_content?("4")
       assert page.has_content?("http://jumpstartlab.com/about")
-      assert page.has_content?("3")
+      assert page.has_content?("5")
     end
 
   end

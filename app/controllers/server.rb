@@ -82,24 +82,11 @@ module TrafficSpy
                          "#{visitor.resolution_width}x#{visitor.resolution_height}"
                        end
         #sorting urls
-        # @pages = Page.all
-        # @counted_urls = @pages.map do |page|
-        #   [page.url, page.requests.count]
-        # end.sort_by {|url, num| num}.reverse
+        @pages = Page.all
+        @counted_urls = @pages.map do |page|
+          [page.url, page.requests.count]
+        end.sort_by {|url, num| num}.reverse
 
-#
-#         page.requests
-#         grouped_requests_by_page_id = Request.all.group(:page_id).count
-#
-#
-#         [[pageid 1, pageid 1], [pageid 2, pageid 2]]
-# {1 => [requests], 2 => [requests]}
-#
-#         @grouped_requests_by_url = grouped_requests_by_page_id.map do |collection_of_requests|
-#                                     [ collection_of_requests.first.page_url, collection_of_requests.count]
-#                                   end
-# byebug
-        # @grouped_requests = grouped_requests.sort_by { |request| request.last }.reverse
 
         #sorting response times
 
@@ -130,6 +117,7 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
       if Source.exists?(identifier: identifier)
+
       else
         @error_message = "Identifier: '#{identifier}' does not exist"
         redirect not_found
@@ -140,12 +128,7 @@ module TrafficSpy
 end
 
 # most visited urls html
-# <% @counted_urls.each do |url, times_visited| %>
-#   <tr>
-#     <td><%= url %></td>
-#     <td><%= times_visited %></td>
-#   </tr>
-# <%end%>
+
 
 
 

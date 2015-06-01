@@ -40,12 +40,16 @@
 <table id="sorted_urls">
   <th>URL</th>
   <th>Total</th>
-
+  <% @counted_urls.each do |url, times_visited| %>
+    <tr>
+      <td><%= url %></td>
+      <td><%= times_visited %></td>
+    </tr>
+  <% end %>
 </table>
 
 <h3>Average response times</h3>
 <table id="response_times">
   <th>URL</th>
   <th>Time</th>
-    
 </table>
