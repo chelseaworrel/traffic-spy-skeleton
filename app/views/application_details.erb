@@ -51,8 +51,14 @@
   <% end %>
 </table>
 
-<h3>Average response times</h3>
+<h3>Average Response Times</h3>
 <table id="response_times">
   <th>URL</th>
-  <th>Time</th>
+  <th>Average Response Time</th>
+  <% @average_response_times.each do |url, response_time| %>
+    <tr>
+      <td><%= url %></td>
+      <td><%= response_time %></td>
+    </tr>
+  <% end %>
 </table>

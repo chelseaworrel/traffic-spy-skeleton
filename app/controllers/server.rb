@@ -81,32 +81,17 @@ module TrafficSpy
         @resolutions = @visitors.map do |visitor|
                          "#{visitor.resolution_width}x#{visitor.resolution_height}"
                        end
+
         #sorting urls
         @pages = Page.all
         @counted_urls = @pages.map do |page|
-          [page.url, page.requests.count]
-        end.sort_by {|url, num| num}.reverse
-
+          [page.url, page.times_visited]
+        end.sort_by { |url, num| num }.reverse
 
         #sorting response times
-
-        # @url = TrafficSpy::Page.where(url: "http://jumpstartlab.com/blog")
-
-        # @pages = Page.all
-        # @average_times = @pages.map{ |page| { page.url => page.average_time } }
-
-        # @test = @pages.map do |page|
-        #           page.requests
-        #         end
-        # @requests = Request.all
-        #
-        # loop thru urls and average the response times.
-        # then we need to display them from longest to slowest
-        #
-        #
-       # @request = TrafficSpy::Request.where(@request.page_id == 1)
-       # Then it should return a page that displays the
-       # Longest, average response time per URL to shortest, average response time per URL
+        @average_response_times = @pages.map do |page|
+          [page.url, page.average_response_time]
+        end.sort_by { |url, num| num }.reverse
 
         erb :application_details
       else
@@ -126,15 +111,3 @@ module TrafficSpy
 
   end
 end
-
-
-
-
-
-# AVERAGE RESPONSE TIMES
-# <% @average_times.each do |url, avereage_time| %>
-#   <tr>
-#     <td><%= url %></td>
-#     <td><%= avereage_time %></td>
-#   </tr>
-# <% end %>

@@ -100,7 +100,6 @@ class ApplicationTest < FeatureTest
   def test_page_displays_most_to_least_requested_urls
     create_requests(5)
     visit '/sources/jumpstartlab'
-    save_and_open_page
     within("#sorted_urls") do
       assert page.has_content?("http://jumpstartlab.com/blog")
       assert page.has_content?("4")
@@ -110,19 +109,14 @@ class ApplicationTest < FeatureTest
 
   end
 
-  # As a client with a registered application
-  # When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
-  # Then it should return a page that displays the
-  # Longest, average response time per URL to shortest, average response time per URL
-
-
-  # def test_page_displays_average_response_times_from_highest_to_lowest
-  #   create_requests(5)
-  #   visit '/sources/jumpstartlab'
-  #   # save_and_open_page
-  #   within("#response_times") do
-  #     assert page.has_content?("3.0")
-  #     assert page.has_content?("2.0")
-  #   end
-  # end
+  def test_page_displays_average_response_times_from_highest_to_lowest
+    create_requests(5)
+    visit '/sources/jumpstartlab'
+    within("#response_times") do
+      assert page.has_content?("http://jumpstartlab.com/blog")
+      assert page.has_content?("10.75")
+      assert page.has_content?("http://jumpstartlab.com/about")
+      assert page.has_content?("3.0")
+    end
+  end
 end
