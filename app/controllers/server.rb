@@ -81,45 +81,17 @@ module TrafficSpy
         @resolutions = @visitors.map do |visitor|
                          "#{visitor.resolution_width}x#{visitor.resolution_height}"
                        end
-        #sorting urls
-        # @pages = Page.all
-        # @counted_urls = @pages.map do |page|
-        #   [page.url, page.requests.count]
-        # end.sort_by {|url, num| num}.reverse
 
-#
-#         page.requests
-#         grouped_requests_by_page_id = Request.all.group(:page_id).count
-#
-#
-#         [[pageid 1, pageid 1], [pageid 2, pageid 2]]
-# {1 => [requests], 2 => [requests]}
-#
-#         @grouped_requests_by_url = grouped_requests_by_page_id.map do |collection_of_requests|
-#                                     [ collection_of_requests.first.page_url, collection_of_requests.count]
-#                                   end
-# byebug
-        # @grouped_requests = grouped_requests.sort_by { |request| request.last }.reverse
+        #sorting urls
+        @pages = Page.all
+        @counted_urls = @pages.map do |page|
+                          [page.url, page.times_visited]
+                        end.sort_by { |url, num| num }.reverse
 
         #sorting response times
-
-        # @url = TrafficSpy::Page.where(url: "http://jumpstartlab.com/blog")
-
-        # @pages = Page.all
-        # @average_times = @pages.map{ |page| { page.url => page.average_time } }
-
-        # @test = @pages.map do |page|
-        #           page.requests
-        #         end
-        # @requests = Request.all
-        #
-        # loop thru urls and average the response times.
-        # then we need to display them from longest to slowest
-        #
-        #
-       # @request = TrafficSpy::Request.where(@request.page_id == 1)
-       # Then it should return a page that displays the
-       # Longest, average response time per URL to shortest, average response time per URL
+        @average_response_times = @pages.map do |page|
+                                    [page.url, page.average_response_time]
+                                  end.sort_by { |url, num| num }.reverse
 
         erb :application_details
       else
@@ -130,6 +102,7 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:relative/:path' do |identifier, relative, path|
       if Source.exists?(identifier: identifier)
+
       else
         @error_message = "Identifier: '#{identifier}' does not exist"
         redirect not_found
@@ -138,32 +111,3 @@ module TrafficSpy
 
   end
 end
-
-# most visited urls html
-# <% @counted_urls.each do |url, times_visited| %>
-#   <tr>
-#     <td><%= url %></td>
-#     <td><%= times_visited %></td>
-#   </tr>
-# <%end%>
-
-
-
-# <!-- <% #@grouped_requests_by_url.each do |url, times_visited| %> -->
-# <!-- <tr> -->
-#   <!-- <td style="text-align: center"><%= #times_visited %></td> -->
-#   <!-- <td style="text-align: center"><%= #url %></td> -->
-# <!-- </tr> -->
-# <%# end %>
-
-
-
-
-
-# AVERAGE RESPONSE TIMES
-# <% @average_times.each do |url, avereage_time| %>
-#   <tr>
-#     <td><%= url %></td>
-#     <td><%= avereage_time %></td>
-#   </tr>
-# <% end %>

@@ -5,8 +5,9 @@
 <h2>Application Details</h2>
 <br>
 
+<h3>Web Browser Breakdown Across Requests</h3>
 <table id="browser_details">
-  <th>Web Browser</th>
+  <th>Browser</th>
   <th>Count</th>
   <% @counted_browsers.each do |browser, count| %>
   <tr>
@@ -16,6 +17,7 @@
   <% end %>
 </table>
 
+<h3>Operating System Breakdown Across Requests</h3>
 <table id="os_details">
   <th>Operating System</th>
   <th>Count</th>
@@ -27,6 +29,7 @@
   <% end %>
 </table>
 
+<h3>Screen Resolutions Across Requests</h3>
 <table id="resolution_details">
   <th>Screen Resolutions</th>
   <% @resolutions.each do |resolution| %>
@@ -39,13 +42,23 @@
 <h3>Most Visited URLs</h3>
 <table id="sorted_urls">
   <th>URL</th>
-  <th>Total</th>
-
+  <th>Total Times Visited</th>
+  <% @counted_urls.each do |url, times_visited| %>
+    <tr>
+      <td><%= url %></td>
+      <td><%= times_visited %></td>
+    </tr>
+  <% end %>
 </table>
 
-<h3>Average response times</h3>
+<h3>Average Response Times</h3>
 <table id="response_times">
   <th>URL</th>
-  <th>Time</th>
-    
+  <th>Average Response Time</th>
+  <% @average_response_times.each do |url, response_time| %>
+    <tr>
+      <td><%= url %></td>
+      <td><%= response_time %></td>
+    </tr>
+  <% end %>
 </table>

@@ -30,7 +30,6 @@ class ApplicationTest < FeatureTest
     within("#error") do
       assert page.has_content?("Identifier: 'not_registered' does not exist")
     end
-    # assert_equal 404, last_response.status
   end
 
   def test_route_renders_correctly_to_application_details_erb
@@ -86,14 +85,12 @@ class ApplicationTest < FeatureTest
   end
 
   def create_requests(num)
-    TrafficSpy::Page.create("url" => "http://jumpstartlab.com/blog", "id" => 1)
     TrafficSpy::Page.create("url" => "http://jumpstartlab.com/about", "id" => 2)
-
 
     1.upto(num) do |n|
       TrafficSpy::Request.create("responded_in" => n, "page_id" => 2)
-
     end
+
     num = num -= 2
     1.upto(num) do |n|
       TrafficSpy::Request.create("responded_in" => n, "page_id" => 1)
@@ -103,29 +100,23 @@ class ApplicationTest < FeatureTest
   def test_page_displays_most_to_least_requested_urls
     create_requests(5)
     visit '/sources/jumpstartlab'
-    save_and_open_page
     within("#sorted_urls") do
       assert page.has_content?("http://jumpstartlab.com/blog")
-      assert page.has_content?("6")
+      assert page.has_content?("4")
       assert page.has_content?("http://jumpstartlab.com/about")
-      assert page.has_content?("3")
+      assert page.has_content?("5")
     end
 
   end
 
-  # As a client with a registered application
-  # When I visit http://yourapplication:port/sources/IDENTIFIER and an identifer exists
-  # Then it should return a page that displays the
-  # Longest, average response time per URL to shortest, average response time per URL
-
-
-  # def test_page_displays_average_response_times_from_highest_to_lowest
-  #   create_requests(5)
-  #   visit '/sources/jumpstartlab'
-  #   # save_and_open_page
-  #   within("#response_times") do
-  #     assert page.has_content?("3.0")
-  #     assert page.has_content?("2.0")
-  #   end
-  # end
+  def test_page_displays_average_response_times_from_highest_to_lowest
+    create_requests(5)
+    visit '/sources/jumpstartlab'
+    within("#response_times") do
+      assert page.has_content?("http://jumpstartlab.com/blog")
+      assert page.has_content?("10.75")
+      assert page.has_content?("http://jumpstartlab.com/about")
+      assert page.has_content?("3.0")
+    end
+  end
 end
