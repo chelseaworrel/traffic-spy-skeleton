@@ -127,18 +127,6 @@ module TrafficSpy
   end
 end
 
-# most visited urls html
-
-
-
-
-# <!-- <% #@grouped_requests_by_url.each do |url, times_visited| %> -->
-# <!-- <tr> -->
-#   <!-- <td style="text-align: center"><%= #times_visited %></td> -->
-#   <!-- <td style="text-align: center"><%= #url %></td> -->
-# <!-- </tr> -->
-# <%# end %>
-
 
 
 

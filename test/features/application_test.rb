@@ -30,7 +30,6 @@ class ApplicationTest < FeatureTest
     within("#error") do
       assert page.has_content?("Identifier: 'not_registered' does not exist")
     end
-    # assert_equal 404, last_response.status
   end
 
   def test_route_renders_correctly_to_application_details_erb
