@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="./app/public/style.css">
+    <link rel='stylesheet' href=<%= ENV["RACK_ENV"] == "test" ?
+                                    "./app/public/style.css" : "/style.css" %>>
     <title>Traffic Spy</title>
   </head>
 
   <body>
     <div class="container">
       <%= yield %>
+
+      <p></p>
     </div>
   </body>
 </html>

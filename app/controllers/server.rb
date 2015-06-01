@@ -85,13 +85,13 @@ module TrafficSpy
         #sorting urls
         @pages = Page.all
         @counted_urls = @pages.map do |page|
-          [page.url, page.times_visited]
-        end.sort_by { |url, num| num }.reverse
+                          [page.url, page.times_visited]
+                        end.sort_by { |url, num| num }.reverse
 
         #sorting response times
         @average_response_times = @pages.map do |page|
-          [page.url, page.average_response_time]
-        end.sort_by { |url, num| num }.reverse
+                                    [page.url, page.average_response_time]
+                                  end.sort_by { |url, num| num }.reverse
 
         erb :application_details
       else
