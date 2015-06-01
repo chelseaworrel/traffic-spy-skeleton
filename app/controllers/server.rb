@@ -82,15 +82,31 @@ module TrafficSpy
                          "#{visitor.resolution_width}x#{visitor.resolution_height}"
                        end
         #sorting urls
-        grouped_pages = Page.group(:url).count
-        @grouped_pages = grouped_pages.sort_by { |page| page.last }.reverse
+        # @pages = Page.all
+        # @counted_urls = @pages.map do |page|
+        #   [page.url, page.requests.count]
+        # end.sort_by {|url, num| num}.reverse
+
+#
+#         page.requests
+#         grouped_requests_by_page_id = Request.all.group(:page_id).count
+#
+#
+#         [[pageid 1, pageid 1], [pageid 2, pageid 2]]
+# {1 => [requests], 2 => [requests]}
+#
+#         @grouped_requests_by_url = grouped_requests_by_page_id.map do |collection_of_requests|
+#                                     [ collection_of_requests.first.page_url, collection_of_requests.count]
+#                                   end
+# byebug
+        # @grouped_requests = grouped_requests.sort_by { |request| request.last }.reverse
 
         #sorting response times
 
         # @url = TrafficSpy::Page.where(url: "http://jumpstartlab.com/blog")
 
-        @pages = Page.all
-        @average_times = @pages.map{|page| page.average_time }
+        # @pages = Page.all
+        # @average_times = @pages.map{ |page| { page.url => page.average_time } }
 
         # @test = @pages.map do |page|
         #           page.requests
@@ -122,3 +138,32 @@ module TrafficSpy
 
   end
 end
+
+# most visited urls html
+# <% @counted_urls.each do |url, times_visited| %>
+#   <tr>
+#     <td><%= url %></td>
+#     <td><%= times_visited %></td>
+#   </tr>
+# <%end%>
+
+
+
+# <!-- <% #@grouped_requests_by_url.each do |url, times_visited| %> -->
+# <!-- <tr> -->
+#   <!-- <td style="text-align: center"><%= #times_visited %></td> -->
+#   <!-- <td style="text-align: center"><%= #url %></td> -->
+# <!-- </tr> -->
+# <%# end %>
+
+
+
+
+
+# AVERAGE RESPONSE TIMES
+# <% @average_times.each do |url, avereage_time| %>
+#   <tr>
+#     <td><%= url %></td>
+#     <td><%= avereage_time %></td>
+#   </tr>
+# <% end %>
